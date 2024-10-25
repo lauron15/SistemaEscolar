@@ -44,7 +44,7 @@ public class CursosService {
 
     //ExcluirVaga
 
-public boolean excluirVaga(Long id){
+public boolean excluirCurso(Long id){
         if (repository.existsById(id)){
             repository.deleteById(id);
             return true;

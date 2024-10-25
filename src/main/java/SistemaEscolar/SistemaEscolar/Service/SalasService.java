@@ -24,7 +24,7 @@ public class SalasService {
         return repository.findById(id);
     }
 
-    public Salas criarSalar(Salas salas) {
+    public Salas criarSalas(Salas salas) {
         return repository.save(salas);
     }
 

@@ -40,4 +40,13 @@ public class UsuarioService {
         return repository.findById(id).map(usuarioExistente -> repository.save(usuario))
                 .orElseThrow(() -> new RuntimeException("O usuario com o ID" + id + "não foi encontrada" ));
     }
+
+    public boolean excluirUsuario(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        } else {
+            throw new RuntimeException("Usuario com o ID" + id + "não encontrado");
+        }
+    }
 }
