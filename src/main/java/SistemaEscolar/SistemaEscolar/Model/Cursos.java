@@ -5,18 +5,18 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "")
+@Table(name = "cursos")
 public class Cursos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "")
+    @Column(name = "id")
     public Long id;
 
-    @Column(name = "")
+    @Column(name = "nome")
     private String nome;
 
-    @Column(name = "")
+    @Column(name = "cargahoraria")
     private int cargaHoraria;
 
 }

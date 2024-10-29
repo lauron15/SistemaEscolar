@@ -18,24 +18,24 @@ public class CursosService {
 
     //BUSCAR TODOS
 
-    public List<Cursos>listarCursos(){
-       return repository.findAll();
+    public List<Cursos> listarCursos() {
+        return repository.findAll();
     }
 
     // BUSCAR POR ID
 
-    public Optional<Cursos>buscarCursoPorId(Long id){
+    public Optional<Cursos> buscarCursoPorId(Long id) {
         return repository.findById(id);
     }
 
     //Criar Curso
-    public Cursos criarCurso (Cursos cursos){
+    public Cursos criarCurso(Cursos cursos) {
         return repository.save(cursos);
     }
 
     //EditarCurso
 
-    public Cursos editarCurso(Cursos cursos, Long id){
+    public Cursos editarCurso(Cursos cursos, Long id) {
         cursos.setId(id);
         return repository.findById(id).map(CursoExistente -> repository.save(cursos))
                 .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
@@ -44,13 +44,13 @@ public class CursosService {
 
     //ExcluirVaga
 
-public boolean excluirCurso(Long id){
-        if (repository.existsById(id)){
+    public boolean excluirCurso(Long id) {
+        if (repository.existsById(id)) {
             repository.deleteById(id);
             return true;
         } else {
             throw new RuntimeException("Vaga com o Id" + id + "Não encontrada.");
         }
-}
+    }
 
 }

@@ -16,38 +16,38 @@ import java.util.Optional;
 @RequestMapping("/cursos")
 public class CursosController {
 
-private final CursosService cursosService;
+    private final CursosService cursosService;
 
     public CursosController(CursosService cursosService) {
         this.cursosService = cursosService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Cursos>>listarCursos(){
+    public ResponseEntity<List<Cursos>> listarCursos() {
         List<Cursos> cursos = cursosService.listarCursos();
         return ResponseEntity.status(200).body(cursos);
     }
 
-    @GetMapping("{/id}")
-    public ResponseEntity<Cursos>buscarCursoPorId(@PathVariable Long id){
-        Optional<Cursos>cursos = cursosService.buscarCursoPorId(id);
-    return cursos.map(ResponseEntity::ok)
-            .orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    @GetMapping("/{id}")
+    public ResponseEntity<Cursos> buscarCursoPorId(@PathVariable Long id) {
+        Optional<Cursos> cursos = cursosService.buscarCursoPorId(id);
+        return cursos.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PostMapping
-    public ResponseEntity<Cursos>criarCurso(@RequestBody Cursos cursos){
+    public ResponseEntity<Cursos> criarCurso(@RequestBody Cursos cursos) {
         return ResponseEntity.status(201).body(cursosService.criarCurso(cursos));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cursos>editarCurso(@RequestBody Cursos cursos, @PathVariable Long id){
+    public ResponseEntity<Cursos> editarCurso(@RequestBody Cursos cursos, @PathVariable Long id) {
         Cursos cursosAtualizados = cursosService.editarCurso(cursos, id);
         return ResponseEntity.status(200).body(cursosAtualizados);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> editarUsuario(@PathVariable Long id){
+    public ResponseEntity<Void> editarUsuario(@PathVariable Long id) {
         cursosService.excluirCurso(id);
         return ResponseEntity.status(204).build();
     }

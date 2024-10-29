@@ -12,41 +12,41 @@ public class AlunosService {
 
     private final IAlunosRepository repository;
 
-    public AlunosService(IAlunosRepository repository){
+    public AlunosService(IAlunosRepository repository) {
         this.repository = repository;
     }
 
     //BUSCAR
 
-    public List<Alunos> listarAlunos(){
+    public List<Alunos> listarAlunos() {
         return repository.findAll();
     }
 
     //BUSCAR COM ID
 
-    public Optional<Alunos>listarAlunosPorId(Long id){
+    public Optional<Alunos> listarAlunosPorId(Long id) {
         return repository.findById(id);
     }
 
     // CADASTRAR ALUNO
 
-    public Alunos cadastrarAlunos(Alunos alunos){
+    public Alunos cadastrarAlunos(Alunos alunos) {
         return repository.save(alunos);
     }
 
     // EDITAR ALUNO
 
-    public Alunos editarAluno(Alunos alunos, Long id){
-       alunos.setId(id);
-       return repository.findById(id).map(alunoExistente -> repository.save(alunos))
-               .orElseThrow(() ->new RuntimeException("O Aluno com o ID" + id +"não foi encontrado"));
-       }
+    public Alunos editarAluno(Alunos alunos, Long id) {
+        alunos.setId(id);
+        return repository.findById(id).map(alunoExistente -> repository.save(alunos))
+                .orElseThrow(() -> new RuntimeException("O Aluno com o ID" + id + "não foi encontrado"));
+    }
 
-       public boolean excluirAluno(Long id){
-        if (repository.existsById(id)){
-        repository.deleteById(id);
-        return true;
-       } else {
+    public boolean excluirAluno(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        } else {
             throw new RuntimeException("O Aluno com o id" + id + "não foi encontrado");
         }
 
