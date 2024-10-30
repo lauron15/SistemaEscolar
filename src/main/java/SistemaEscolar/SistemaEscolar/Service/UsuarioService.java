@@ -2,6 +2,10 @@ package SistemaEscolar.SistemaEscolar.Service;
 
 import SistemaEscolar.SistemaEscolar.Model.Usuario;
 import SistemaEscolar.SistemaEscolar.Repository.IUsuarioRepository;
+import SistemaEscolar.SistemaEscolar.Security.Token;
+import SistemaEscolar.SistemaEscolar.Security.TokenUtil;
+import SistemaEscolar.SistemaEscolar.dto.UsuarioDTO;
+import jakarta.validation.Valid;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -70,4 +74,14 @@ public class UsuarioService {
     }
 
 
+    public Token gerarToken(@Valid UsuarioDTO usuario) {
+       Usuario user = repository.findByusername(usuario.getUsername());
+       if(user !=null){
+           Boolean valid = passwordEncoder.matches(usuario.getSenha(), user.getSenha());
+       if (valid) {
+           return new Token(TokenUtil.createToken(user));
+       }
+       }
+       return  null;
+    }
 }

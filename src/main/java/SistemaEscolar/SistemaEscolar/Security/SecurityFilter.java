@@ -3,7 +3,12 @@ package SistemaEscolar.SistemaEscolar.Security;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
+
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 
 import java.io.IOException;
 
@@ -17,6 +22,12 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             throws ServletException, IOException {
 
-        filterChain.doFilter(request,response);
+        if (request.getHeader("Authorization") != null) {
+
+            Authentication auth = TokenUtil.validate(request);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+
+        filterChain.doFilter(request, response);
     }
 }

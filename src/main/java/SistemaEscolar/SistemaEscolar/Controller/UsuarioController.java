@@ -1,7 +1,9 @@
 package SistemaEscolar.SistemaEscolar.Controller;
 
 import SistemaEscolar.SistemaEscolar.Model.Usuario;
+import SistemaEscolar.SistemaEscolar.Security.Token;
 import SistemaEscolar.SistemaEscolar.Service.UsuarioService;
+import SistemaEscolar.SistemaEscolar.dto.UsuarioDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,12 +53,12 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Usuario> validarSenha(@RequestBody Usuario usuario) {
-        Boolean valid = usuarioService.validarSenha(usuario);
-        if (!valid) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity<Token> logar(@RequestBody UsuarioDTO usuario) {
+       Token token = usuarioService.gerarToken(usuario);
+        if (token != null) {
+            return ResponseEntity.ok(token);
         } else {
-            return ResponseEntity.status(200).build();
+            return ResponseEntity.status(403).build();
         }
     }
 

@@ -14,10 +14,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // Desativa CSRF
+
+        http.csrf(csrf -> csrf.disable()) // Desativa CSRF
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/usuario").permitAll() // Permite acesso a GET em /usuario
+                        .requestMatchers(HttpMethod.POST, "/usuario").permitAll() // Permite acesso a GET em /usuario
                         .anyRequest().authenticated() // Qualquer outra requisição deve ser autenticada
                 )
                 .cors(cors -> {
